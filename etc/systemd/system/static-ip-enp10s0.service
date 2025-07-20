@@ -1,0 +1,18 @@
+[Unit]
+Description=Static IP Configuration for enp10s0
+After=network-pre.target
+Wants=network-pre.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/ip address flush dev enp10s0
+ExecStart=/usr/sbin/ip link set dev enp10s0 up
+ExecStart=/usr/sbin/ip address add 192.168.0.188/24 dev enp10s0
+ExecStart=/usr/sbin/ip route add default via 192.168.0.1 dev enp10s0
+ExecStart=/usr/sbin/ip address add fe80::9e6b:ff:fe96:ceeb/64 dev enp10s0 
+ExecStop=/usr/sbin/ip address flush dev enp10s0
+ExecStop=/usr/sbin/ip link set dev enp10s0 down
+
+[Install]
+WantedBy=multi-user.target
