@@ -1,0 +1,12 @@
+[Unit]
+Description=GPU Control Daemon (via Flatpak)
+After=multi-user.target
+
+[Service]
+Environment=FLATPAK_INSTALL_USER=izaac
+ExecStart=/home/izaac/.local/share/flatpak/app/io.github.ilya_zlobintsev.LACT/x86_64/stable/active/files/bin/daemon.sh
+Nice=-10
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target        
